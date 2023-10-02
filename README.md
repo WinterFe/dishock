@@ -1,3 +1,4 @@
+### **Note**: DiShock isn't currently finished with its re-write, and this open-source is currently for transparency reasons only. The bot has no real function as of right now. An announcement will be made when this isn't the case.
 
 # ⚡ DiShock
 
