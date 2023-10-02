@@ -1,0 +1,15 @@
+node_modules/
+dev.yaml
+prod.yaml
+build/
+docker.env
+gcp.json
+terraform.json
+terraform/
+gcp-docker.json
+.terraform.lock*
+terraform.tfstate
+terraform.tfstate.backup
+.env
+dev.env
+prod.env

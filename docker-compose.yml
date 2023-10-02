@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+    dishock:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: base
+        env_file:
+            - .env
+        container_name: dishock-prod-sim
+        command: npm run start

@@ -1,0 +1,35 @@
+{
+    "name": "dishock.v3",
+    "version": "3.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node build/index.js",
+        "format": "prettier --write .",
+        "docker:dev": "npm run docker:build && npm run docker:run-a",
+        "docker:build": "docker-compose build",
+        "docker:run": "docker-compose up -d",
+        "docker:run-a": "docker-compose up"
+    },
+    "keywords": [],
+    "author": "WinterFe",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "^5.3.1",
+        "@types/express": "^4.17.18",
+        "discord.js": "^14.13.0",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "mariadb": "^3.2.1",
+        "sql-template-strings": "^2.2.2",
+        "typescript": "^5.2.2",
+        "winston": "^3.10.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.50.0",
+        "eslint-config-prettier": "^9.0.0",
+        "prettier": "^3.0.3",
+        "prisma": "^5.3.1"
+    }
+}

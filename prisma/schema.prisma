@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Guilds {
+  id String @id @unique
+  joinedAt DateTime @default(now())
+}
+
+model Users {
+  id String @id @unique
+  apikey String @default("N/A")
+  sharecode String @default("N/A")
+  registered DateTime @default(now())
+}
