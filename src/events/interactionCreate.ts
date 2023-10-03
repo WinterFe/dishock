@@ -5,6 +5,7 @@ const event: BotEvent = {
     name: 'interactionCreate',
     execute: (interaction: Interaction) => {
         if (interaction.isChatInputCommand()) {
+            // Parts largely commented to remove cooldowns, still not sure if I want to impliment them..
             let command = interaction.client.slashCommands.get(interaction.commandName);
             let cooldown = interaction.client.cooldowns.get(`${interaction.commandName}.${interaction.user.username}`);
             if (!command) return;
@@ -16,14 +17,16 @@ const event: BotEvent = {
                     return;
                 }
 
-                interaction.client.cooldowns.set(`${interaction.commandName}.${interaction.user.username}`, Date.now() + command.cooldown * 1000);
-                setTimeout(() => {
-                    interaction.client.cooldowns.delete(`${interaction.commandName}.${interaction.user.username}`);
-                }, command.cooldown * 1000);
+                // interaction.client.cooldowns.set(`${interaction.commandName}.${interaction.user.username}`, Date.now() + command.cooldown * 1000);
+                // setTimeout(() => {
+                //     interaction.client.cooldowns.delete(`${interaction.commandName}.${interaction.user.username}`);
+                // }, command.cooldown * 1000);
             } else if (command.cooldown && !cooldown) {
-                interaction.client.cooldowns.set(`${interaction.commandName}.${interaction.user.username}`, Date.now() + command.cooldown * 1000);
+                // interaction.client.cooldowns.set(`${interaction.commandName}.${interaction.user.username}`, Date.now() + command.cooldown * 1000);
             }
             command.execute(interaction);
+
+            interaction.client.logger.debug(`Command ran: ${interaction.user.username} - ${interaction.commandName}`);
         } else if (interaction.isAutocomplete()) {
             const command = interaction.client.slashCommands.get(interaction.commandName);
             if (!command) {

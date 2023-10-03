@@ -17,7 +17,14 @@ model Guilds {
 
 model Users {
   id String @id @unique
-  apikey String @default("N/A")
-  sharecode String @default("N/A")
+  apikey String? @default("N/A")
+  sharecode String? @default("N/A")
   registered DateTime @default(now())
+}
+
+model UserLimits {
+  id String @id @unique
+  intensity String? @default("10")
+  duration String? @default("1")
+  userlock String?
 }

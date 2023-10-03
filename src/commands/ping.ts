@@ -1,7 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { SlashCommand } from '../types';
 import { EmbedBuilder } from '@discordjs/builders';
-import UserDb from '../Database/User';
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder().setName('ping').setDescription('Ping pong! Anyone home!?'),
@@ -10,8 +9,6 @@ const command: SlashCommand = {
         interaction.reply({
             embeds: [new EmbedBuilder().setAuthor({ name: interaction.user.username, iconURL: authorAvatar }).setDescription(`🏓 Pong!\n\n>>> Response Time: ${interaction.client.ws.ping}ms`)],
         });
-
-        UserDb.get(interaction.user.id);
     },
     cooldown: 10,
 };
