@@ -19,7 +19,7 @@ const command: SlashCommand = {
             if (element.name && element.value) options[element.name] = element.value;
         }
 
-        const embed = new EmbedBuilder().setTitle(`� Beep beep!`).setDescription(`Beeping ${interaction.user.username}'s PiShock for **${options.duration}s**!`).setTimestamp();
+        const embed = new EmbedBuilder().setTitle(`🔊 Beep beep!`).setDescription(`Beeping ${interaction.user.username}'s PiShock for **${options.duration}s**!`).setTimestamp();
         let user = await UserDb.get(interaction.user.id);
 
         await PiShock.req(interaction.user.username, user.apikey, user.sharecode, 2, 100, Number(options.duration));

@@ -2,20 +2,23 @@
 
 # ⚡ DiShock
 
-*DiShock - PiShock integration with Discord*
+_DiShock - PiShock integration with Discord_
+
 ## Self-hosting
 
 ## Prerequisite
-- MySQL/MariaDB Server (https://mariadb.com)
-- **[Optional]** Docker (https://www.docker.com)
-- Node.JS v18+ (https://nodejs.org/en)
-(Note: It is prefferable to deploy on a linux machine, but not required)
+
+-   MySQL/MariaDB Server (https://mariadb.com)
+-   **[Optional]** Docker (https://www.docker.com)
+-   Node.JS v18+ (https://nodejs.org/en)
+    (Note: It is prefferable to deploy on a linux machine, but not required)
 
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
 To do this, rename the file:
+
 ```
   mv .env.example .env
 ```
@@ -28,30 +31,33 @@ Then you can open the `.env` file and fill it out accordingly. (Legend below)
 
 `DATABASE_URL` - The connection string to your MySQL database.
 
-- URL Format: `mysql://<username>:<password>@<ip>:<port>/<db>`
+-   URL Format: `mysql://<username>:<password>@<ip>:<port>/<db>`
 
 ## Running the bot
 
 With Docker:
+
 ```bash
   npm run docker:run
 ```
 
 Docker, attached:
+
 ```bash
   npm run docker:run-a
 ```
 
 Without Docker:
+
 ```bash
   npm install --omit=dev
   npm run build
   npm run start
 ```
+
 ## Support
 
 For support, join the Discord: https://discord.gg/EXPgDDRkGD
-
 
 ## Contributing
 

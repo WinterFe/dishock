@@ -13,3 +13,5 @@ terraform.tfstate.backup
 .env
 dev.env
 prod.env
+prisma
+prisma/migrations/**

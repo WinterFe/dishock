@@ -7,13 +7,25 @@ const command: SlashCommand = {
     command: new SlashCommandBuilder()
         .setName('setup')
         .addStringOption((option) => {
-            return option.setName('api_key').setDescription('Your PiShock API key! Found/generated here: https://pishock.com/#/account').setRequired(true);
+            return option.setName('api_key').setDescription('Your PiShock API key! Found/generated here: https://pishock.com/#/account').setRequired(false);
         })
         .addStringOption((option) => {
-            return option.setName('share_code').setDescription('Your user-generated share code for your PiShock collar.').setRequired(true);
+            return option.setName('share_code').setDescription('Your user-generated share code for your PiShock collar.').setRequired(false);
+        })
+        .addStringOption((option) => {
+            return option.setName('bio').setDescription('Set your profile bio!').setRequired(false);
         })
         .setDescription('Set up your user profile, and get started with DiShock!'),
     execute: async (interaction) => {
+        let apiKey: string | null, shareCode: string | null, bio: string | null;
+
+        function truncateString(input: string | any, visibleLength: number = 3): string {
+            if (input.length <= visibleLength) return input;
+            const prefix = input.slice(0, visibleLength);
+            const suffix = input.slice(-4);
+            return `${prefix}...${suffix}`;
+        }
+
         try {
             await interaction.deferReply({ ephemeral: true });
             const options: { [key: string]: string | number | boolean } = {};
@@ -23,22 +35,27 @@ const command: SlashCommand = {
                 if (element.name && element.value) options[element.name] = element.value;
             }
 
+            const user = UserDb.get(interaction.user.id);
+
+            // Use optional chaining to safely access properties
+            apiKey = (await user)?.apikey;
+            shareCode = (await user)?.sharecode;
+            bio = (await user)?.bio;
+
             const embed = new EmbedBuilder()
                 .setTitle(`PiShock Configuration`)
-                .setDescription(`This is your provided configuration for your PiShock collar.\n**Do not share the keys/codes below, they provide access to your collar!**`)
-                .addFields(
-                    {
-                        name: 'Api Key',
-                        value: options.api_key.toString(),
-                        inline: true,
-                    },
-                    { name: 'Share Code', value: options.share_code.toString(), inline: true }
-                )
+                .setDescription(`This is your provided configuration for your PiShock collar.\n**Be careful sharing these!**`)
+                .addFields({
+                    name: "Secrets 'n Treasures",
+                    value: `\`API Key\` ||${truncateString(apiKey ?? 'Not provided')}||\n\`Share Code\` ||${truncateString(shareCode ?? 'Not provided')}||`,
+                    inline: true,
+                })
                 .setTimestamp();
 
-            UserDb.update(interaction.user.id, { apikey: options.api_key.toString(), sharecode: options.share_code.toString() });
+            UserDb.update(interaction.user.id, { apikey: options.api_key?.toString(), sharecode: options.share_code?.toString(), bio: options.bio?.toString() });
             return interaction.editReply({ embeds: [embed] });
         } catch (err) {
+            console.error(err);
             interaction.editReply({ content: 'An error occurred! Join the support server for more help...' });
         }
     },
